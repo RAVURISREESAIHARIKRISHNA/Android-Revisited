@@ -6,8 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MyLog";
+    private static final String CURRENT_QUESTION = "CURRENT_QUESTION";
 
     private Quiz quiz = null;
 
@@ -20,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton optionD;
 
 
-    private int cuurentQuestionId;
+    private int currentQuestionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         quiz = new Quiz();
 
-        cuurentQuestionId = 0;
+        currentQuestionId = 0;
 
 
         nextButton = (Button) findViewById(R.id.nextButton);
@@ -40,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         optionC = (RadioButton) findViewById(R.id.radioButtonC);
         optionD = (RadioButton) findViewById(R.id.radioButtonD);
 
-        this.drawQuestion(cuurentQuestionId);
+        this.drawQuestion(currentQuestionId);
 
         nextButton.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        if(cuurentQuestionId < quiz.getNumberOfQuestions()){
+                        if(currentQuestionId < quiz.getNumberOfQuestions()){
                             drawNextQuestion();
                         }
                     }
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View v){
-                        if(cuurentQuestionId > 0){
+                        if(currentQuestionId > 0){
                             drawPreviousQuestion();
                         }
                     }
@@ -69,13 +73,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+//        Should call Super Class Method First
+        super.onSaveInstanceState(savedInstanceState);
+
+        Log.i(TAG ,"Saving Instance :"+Integer.toString(currentQuestionId));
+        savedInstanceState.putInt(CURRENT_QUESTION , this.currentQuestionId);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+
+//        Should call Super Class Method first
+        super.onRestoreInstanceState(savedInstanceState);
+
+        this.currentQuestionId = savedInstanceState.getInt(CURRENT_QUESTION);
+        this.drawQuestion(this.currentQuestionId);
+    }
+
     private void drawNextQuestion(){
-        question.setText(quiz.getQuestion(cuurentQuestionId +1));
-        optionA.setText(quiz.getOptionA(cuurentQuestionId +1));
-        optionB.setText(quiz.getOptionB(cuurentQuestionId +1));
-        optionC.setText(quiz.getOptionC(cuurentQuestionId +1));
-        optionD.setText(quiz.getOptionD(cuurentQuestionId +1));
-        cuurentQuestionId++;
+        question.setText(quiz.getQuestion(currentQuestionId +1));
+        optionA.setText(quiz.getOptionA(currentQuestionId +1));
+        optionB.setText(quiz.getOptionB(currentQuestionId +1));
+        optionC.setText(quiz.getOptionC(currentQuestionId +1));
+        optionD.setText(quiz.getOptionD(currentQuestionId +1));
+        currentQuestionId++;
     }
 
     private void drawQuestion(int questionIndex){
@@ -84,15 +107,15 @@ public class MainActivity extends AppCompatActivity {
         optionB.setText(quiz.getOptionB(questionIndex));
         optionC.setText(quiz.getOptionC(questionIndex));
         optionD.setText(quiz.getOptionD(questionIndex));
-//        cuurentQuestionId++;
+//        currentQuestionId++;
     }
 
     private void drawPreviousQuestion(){
-        question.setText(quiz.getQuestion(cuurentQuestionId -1));
-        optionA.setText(quiz.getOptionA(cuurentQuestionId -1));
-        optionB.setText(quiz.getOptionB(cuurentQuestionId -1));
-        optionC.setText(quiz.getOptionC(cuurentQuestionId -1));
-        optionD.setText(quiz.getOptionD(cuurentQuestionId -1));
-        cuurentQuestionId--;
+        question.setText(quiz.getQuestion(currentQuestionId -1));
+        optionA.setText(quiz.getOptionA(currentQuestionId -1));
+        optionB.setText(quiz.getOptionB(currentQuestionId -1));
+        optionC.setText(quiz.getOptionC(currentQuestionId -1));
+        optionD.setText(quiz.getOptionD(currentQuestionId -1));
+        currentQuestionId--;
     }
 }
