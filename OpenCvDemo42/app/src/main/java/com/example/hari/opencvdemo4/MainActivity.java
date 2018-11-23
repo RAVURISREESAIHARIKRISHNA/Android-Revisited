@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG,"HIIII");
         super.onCreate(savedInstanceState);
+        Log.i(TAG,"HELLO");
         setContentView(R.layout.activity_main);
         Log.i(TAG , "called OnCreate");
         System.loadLibrary("opencv_java3");
