@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
+            Log.i(TAG , "POint 1");
 //            super.onManagerConnected(status);
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i(TAG , "called OnCreate");
         System.loadLibrary("opencv_java3");
 
-        Log.i(TAG , "called OnCreate");
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.HelloVisionView);
