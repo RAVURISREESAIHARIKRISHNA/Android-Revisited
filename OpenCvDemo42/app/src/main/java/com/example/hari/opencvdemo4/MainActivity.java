@@ -1,5 +1,6 @@
 package com.example.hari.opencvdemo4;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,7 @@ import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
 
-public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class MainActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     private static final String TAG = "OpenCV_TAG";
 
